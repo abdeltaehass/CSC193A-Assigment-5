@@ -1,28 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Fancify My Text</title>
-    <script src="fancifymytext.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Fancify My Text</title>
 </head>
 <body>
 
-    <fieldset>
-        <legend>Text</legend>
-        <textarea id="userText" rows="4" cols="30"></textarea>
-    </fieldset>
+  <fieldset>
+    <legend>Text</legend>
+    <textarea id="userText" rows="4" cols="30"></textarea>
+  </fieldset>
 
-    <fieldset>
-        <legend>Fancify</legend>
-        <button id="biggerBtn" onclick="makeTextBigger()">Bigger!</button>
-        <br><br>
-        <input type="radio" name="fancyOption" id="fancyShmancy" onchange="fancifyChange()" />
-        <label for="fancyShmancy">FancyShmancy</label>
-        <input type="radio" name="fancyOption" id="boringBetty" onchange="fancifyChange()" checked />
-        <label for="boringBetty">BoringBetty</label>
-    </fieldset>
+  <fieldset>
+    <legend>Fancify</legend>
+    <button id="biggerBtn" onclick="makeTextBigger()">Bigger!</button>
+    <br><br>
+    <input type="radio" name="fancyOption" id="fancyShmancy" onchange="toggleFancy()">
+    <label for="fancyShmancy">FancyShmancy</label>
+    <input type="radio" name="fancyOption" id="boringBetty" onchange="toggleFancy()" checked>
+    <label for="boringBetty">BoringBetty</label>
+  </fieldset>
 
-    <button id="mooBtn" onclick="mooify()">Moo</button>
+  <button id="mooBtn" onclick="mooify()">Moo</button>
+
+  <!-- Inline JavaScript -->
+  <script>
+    function makeTextBigger() {
+      alert("Hello, world!");
+      document.getElementById("userText").style.fontSize = "24pt";
+    }
+
+    function toggleFancy() {
+      const fancy = document.getElementById("fancyShmancy");
+      const textArea = document.getElementById("userText");
+      if (fancy.checked) {
+        alert("FancyShmancy selected!");
+        textArea.style.fontWeight = "bold";
+        textArea.style.color = "blue";
+        textArea.style.textDecoration = "underline";
+      } else {
+        alert("BoringBetty selected!");
+        textArea.style.fontWeight = "normal";
+        textArea.style.color = "black";
+        textArea.style.textDecoration = "none";
+      }
+    }
+
+    function mooify() {
+      const textArea = document.getElementById("userText");
+      let text = textArea.value.toUpperCase();
+      let sentences = text.split(".");
+
+      for (let i = 0; i < sentences.length; i++) {
+        let words = sentences[i].trim().split(" ");
+        if (words[0] !== "") {
+          words[words.length - 1] += "-Moo";
+        }
+        sentences[i] = words.join(" ");
+      }
+
+      text = sentences.join(". ");
+      textArea.value = text;
+    }
+  </script>
 
 </body>
 </html>
